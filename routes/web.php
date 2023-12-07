@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SigninController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardUserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +28,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/signin', [SigninController::class, 'index'])->middleware('guest');
 Route::post('/signin', [SigninController::class, 'store'])->middleware('guest');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+
+//User
+Route::resource('/admin/users', DashboardUserController::class)->except('show')->middleware('auth');
