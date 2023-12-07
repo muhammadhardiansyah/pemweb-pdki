@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SigninController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\DashboardBrandController;
 
 
 /*
@@ -33,3 +34,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 //User
 Route::resource('/admin/users', DashboardUserController::class)->except('show')->middleware('auth');
+
+//Brand
+Route::resource('/admin/brands', DashboardBrandController::class)->middleware('auth');

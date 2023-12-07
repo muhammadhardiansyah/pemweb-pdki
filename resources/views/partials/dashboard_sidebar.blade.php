@@ -127,15 +127,15 @@
                     </li> --}}
 
                     
-                    <li class="sidebar-title">Postingan</li>
-                    <li class="sidebar-item {{ $active == 'dash_posts' ? 'active' : '' }}">
-                        <a href="/admin/posts" class='sidebar-link'>
+                    <li class="sidebar-title">Menu</li>
+                    <li class="sidebar-item {{ $active == 'dash_brands' ? 'active' : '' }}">
+                        <a href="/admin/brands" class='sidebar-link'>
                             <i class="bi bi-person-badge"></i>
-                            <span>Berita</span>
+                            <span>Merek</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{ $active == 'dash_events' ? 'active' : '' }}">
+                    {{-- <li class="sidebar-item {{ $active == 'dash_events' ? 'active' : '' }}">
                         <a href="/admin/events" class='sidebar-link'>
                             <i class="bi bi-person-plus"></i>
                             <span>Event</span>
@@ -148,7 +148,7 @@
                             <i class="bi bi-person-badge"></i>
                             <span>Daftar UMKM</span>
                         </a>
-                    </li>
+                    </li> --}}
 {{--     
                     <li class="sidebar-title">Jabatan</li>
                     <li class="sidebar-item {{ $active == 'dash_position' ? 'active' : '' }}">
