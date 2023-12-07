@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Brand;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -20,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password')
         ]);
+        Brand::factory(10)->create();
         
     }
 }
