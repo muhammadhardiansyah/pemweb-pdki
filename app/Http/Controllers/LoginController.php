@@ -9,7 +9,12 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        if (Auth::viaRemember()){
+            return redirect('/admin');
+        }
+        else {
+            return view('auth.login');
+        }
     }
 
     public function authenticate(Request $request)
@@ -19,7 +24,7 @@ class LoginController extends Controller
             'password' => 'required|min:5|max:255'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
             return redirect()->intended('/admin');
         }

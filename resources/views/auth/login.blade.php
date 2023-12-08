@@ -40,11 +40,11 @@
                         <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
                         <label for="floatingPassword">Password</label>
                     </div>
-                    {{-- <div class="checkbox mb-3 text-center">
+                    <div class="checkbox mb-3">
                         <label>
-                            <input type="checkbox" value="remember-me"> Remember me
+                            <input type="checkbox" name="remember"> Remember me
                         </label>
-                    </div> --}}
+                    </div>
                     <button class="w-100 btn btn-lg btn-success bg-gradient mb-3" type="submit">Login</button>
                     <p class="text-center mb-3">Belum memiliki akun? <a href="/signin">Daftar</a></p>
                     <p class="mt-5 mb-3 text-muted text-center">&copy; 2023</p>
