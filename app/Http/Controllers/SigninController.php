@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-// use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Registered;
 
 class SigninController extends Controller
 {
@@ -24,11 +24,11 @@ class SigninController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']); 
 
-        User::create($validatedData);
-        // $user = User::create($validatedData);
+        $user = User::create($validatedData);
 
-        // event(new Registered($user));
-
+        event(new Registered($user));
+        
         return redirect('/login')->with('success', 'Registration successfully! Please Login');
+        // return redirect('/verification-notification');
     }
 }

@@ -55,7 +55,12 @@ https://templatemo.com/tm-584-pod-talk
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/custom.js"></script>
-
+    <script>
+        function submit() {
+            let form = document.getElementById("logout");
+            form.submit();
+        }
+    </script>
 </body>
 
 </html>
