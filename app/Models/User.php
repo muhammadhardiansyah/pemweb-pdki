@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+// class User extends Authenticatable implements MustVerifyEmail
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasUuids;
@@ -21,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'username',
+        'email_verified_at',
         'email',
         'password',
     ];
@@ -41,7 +44,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        // 'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 }

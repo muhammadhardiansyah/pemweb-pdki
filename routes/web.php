@@ -21,16 +21,16 @@ use App\Http\Controllers\DashboardBrandController;
 
 Route::get('/', function () {
     return view('auth/login');
-});
+})->middleware('guest');
 
-Route::get('/login', [LoginController::class, 'index'])->middleware(('guest')); 
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest'); 
 Route::post('/login', [LoginController::class, 'authenticate']); 
 Route::post('/logout', [LoginController::class, 'logout']); 
 
 Route::get('/signin', [SigninController::class, 'index'])->middleware('guest');
 Route::post('/signin', [SigninController::class, 'store'])->middleware('guest');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth');
 
 //User
 Route::resource('/admin/users', DashboardUserController::class)->except('show')->middleware('auth');
