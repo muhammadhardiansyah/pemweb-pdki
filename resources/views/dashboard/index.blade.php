@@ -1,4 +1,4 @@
-{{-- {{ dd($posts->where('user_id', auth()->user()->id)) }} --}}
+{{ dd($brands) }}
 <?php //$myPosts = $posts->where('user_id', auth()->user()->id) ?>
 @extends('layout.dashboard.main')
 

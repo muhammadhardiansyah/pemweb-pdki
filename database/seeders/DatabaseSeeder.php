@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'username' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'ardana.629@gmail.com',
             'password' => bcrypt('password')
         ]);
+
         Brand::factory(10)->create();
-        
     }
 }

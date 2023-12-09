@@ -38,6 +38,7 @@ class DashboardBrandController extends Controller
         // ddd($request);
         $validatedData = $request->validate([
             'name'          => 'required|min:3|max:255',
+            'user_id'     => 'required',
             'address'       => 'required|min:3|max:255',
             'owner'         => 'required|min:3|max:255',
             'logos'         => 'image|file|max:2048',

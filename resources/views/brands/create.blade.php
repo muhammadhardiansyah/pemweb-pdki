@@ -124,6 +124,7 @@
                 @enderror
             </div> --}}
 
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
             <button type="submit" class="btn btn-success">
                 <i class="bi bi-plus-square mr-1"></i>
                 <span>Submit</span>
