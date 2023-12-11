@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('logos')->nullable();
             $table->string('certificate')->nullable();
             $table->string('signature')->nullable();
-            $table->string('decision')->nullable();
+            $table->tinyInteger('decision')->default(2);
             $table->timestamps();
         });
     }

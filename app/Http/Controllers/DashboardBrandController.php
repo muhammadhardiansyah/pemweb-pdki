@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Brand;
+use App\Models\User;
+use App\Notifications\ReviseBrandNotification;
+use App\Notifications\ApproveBrandNotification;
+use App\Notifications\RejectBrandNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Notification;
 
 class DashboardBrandController extends Controller
 {
@@ -146,5 +151,30 @@ class DashboardBrandController extends Controller
         Brand::destroy($brand->id);
 
         return redirect('/admin/brands')->with('danger', 'Pengajuan merek sudah dihapus!');
+    }
+
+    public function accept(Brand $brand)
+    {
+        Brand::where('id', $brand->id)->update(['decision' => 1]);
+        $user = User::find($brand->applicant->id);
+        $user->notify(new ApproveBrandNotification($brand));
+        return redirect('/admin/brands')->with('success', 'Pengajuan merek sudah disetujui!');
+    }
+
+    public function reject(Request $request)
+    {
+        Brand::where('id', $request->id_brand)->update(['decision' => 0]);
+        $brand = Brand::find($request->id_brand);
+        $user = User::find($brand->applicant->id);
+        $user->notify(new RejectBrandNotification($brand, $request->notes));
+        return redirect('/admin/brands')->with('danger', 'Pengajuan merek sudah ditolak!');
+    }
+
+    public function revise(Request $request){
+        Brand::where('id', $request->id_brand)->update(['decision' => 3]);
+        $brand = Brand::find($request->id_brand);
+        $user = User::find($brand->applicant->id);
+        $user->notify(new ReviseBrandNotification($brand, $request->notes));
+        return redirect('/admin/brands')->with('warning', 'Pengajuan merek harus direvisi!');
     }
 }

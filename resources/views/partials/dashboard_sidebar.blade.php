@@ -52,6 +52,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item {{ $active == 'dash_announce' ? 'active' : '' }}">
+                    <a href="/admin/announcements" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Announcement</span>
+                    </a>
+                </li>
+
                 {{-- <li class="sidebar-item {{ $active == 'dash' ? 'active' : '' }}">
                     <a href="/dashboard" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>

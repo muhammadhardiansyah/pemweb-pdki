@@ -7,7 +7,8 @@ use App\Http\Controllers\SigninController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardBrandController;
-
+use App\Http\Controllers\DashboardAnnouncementController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,16 @@ Route::resource('/admin/users', DashboardUserController::class)->except('show')-
 
 
 //Brand
-Route::resource('/admin/brands', DashboardBrandController::class)->middleware(['auth']);
+Route::resource('/admin/brands', DashboardBrandController::class)->middleware(['auth','verified']);
+Route::get('/admin/brands/accept/{brand:id}', [DashboardBrandController::class, 'accept']);
+Route::post('/admin/brands/reject', [DashboardBrandController::class, 'reject']);
+Route::post('/admin/brands/revise', [DashboardBrandController::class, 'revise']);
 // Auth::routes();
+
+//Announcements
+Route::resource('/admin/announcements', DashboardAnnouncementController::class)->middleware(['auth','verified']);
+
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -47,7 +47,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="logos" class="form-label">Masukkan Logo Usaha AKU SYANG ISNA</label>
+                <label for="logos" class="form-label">Masukkan Logo Usaha</label>
                 @if ($brand->logos)
                     <img class="img-preview img-fluid mb-3 col-sm-5 d-block" src="{{ asset("/storage/$brand->logos") }}">    
                 @endif
@@ -60,7 +60,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="signature" class="form-label">Masukkan Tanda Tangan AKU SYANG ISNA</label>
+                <label for="signature" class="form-label">Masukkan Tanda Tangan</label>
                 @if ($brand->signature)
                     <img class="img-preview2 img-fluid mb-3 col-sm-5 d-block" src="{{ asset("/storage/$brand->signature") }}">
                 @endif
