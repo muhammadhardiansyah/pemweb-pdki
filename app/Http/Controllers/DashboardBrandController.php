@@ -46,9 +46,9 @@ class DashboardBrandController extends Controller
             'user_id'     => 'required',
             'address'       => 'required|min:3|max:255',
             'owner'         => 'required|min:3|max:255',
-            'logos'         => 'image|file|max:2048',
+            'logos'         => 'required|image|file|max:2048',
             'certificate'   => 'mimes:pdf|max:10000',
-            'signature'     => 'image|file|max:2048',
+            'signature'     => 'required|image|file|max:2048',
         ]);
 
         if ($request -> file('logos')) {
@@ -125,6 +125,10 @@ class DashboardBrandController extends Controller
                 Storage::delete($brand->signature);
             }
             $validatedData['signature'] = $request->file('signature')->store('brand-signature');
+        }
+
+        if ($brand->decision == 3) {
+            $validatedData['decision'] = 2;
         }
         
         

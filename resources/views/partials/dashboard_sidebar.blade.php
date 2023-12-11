@@ -57,6 +57,12 @@
                         <i class="bi bi-grid-fill"></i>
                         <span>Announcement</span>
                     </a>
+                    @if (auth()->user()->unreadNotifications->count())
+                        <span class="position-absolute {{ $active == 'dash_announce' ? 'top-0' : 'top-50' }} start-100 translate-middle badge rounded-pill bg-danger">
+                            <i class="bi bi-bell-fill"></i>
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </span>
+                    @endif
                 </li>
 
                 {{-- <li class="sidebar-item {{ $active == 'dash' ? 'active' : '' }}">
@@ -65,7 +71,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li> --}}
-                
+
                 {{-- <li class="sidebar-title">Postingan</li>
 
                 <li class="sidebar-item {{ $active == 'dash_posts' ? 'active' : '' }}">
@@ -118,31 +124,31 @@
                     </li>
 
                     --}}
-                    <li class="sidebar-title">User</li>
-                    <li class="sidebar-item {{ $active == 'dash_users' ? 'active' : '' }}">
-                        <a href="/admin/users" class='sidebar-link'>
-                            <i class="bi bi-person-lines-fill"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
+                <li class="sidebar-title">User</li>
+                <li class="sidebar-item {{ $active == 'dash_users' ? 'active' : '' }}">
+                    <a href="/admin/users" class='sidebar-link'>
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
 
-                    {{-- <li class="sidebar-item {{ $active == 'add_users' ? 'active' : '' }}">
+                {{-- <li class="sidebar-item {{ $active == 'add_users' ? 'active' : '' }}">
                         <a href="/users/create" class='sidebar-link'>
                             <i class="bi bi-person-plus-fill"></i>
                             <span>Tambah User</span>
                         </a>
                     </li> --}}
 
-                    
-                    <li class="sidebar-title">Menu</li>
-                    <li class="sidebar-item {{ $active == 'dash_brands' ? 'active' : '' }}">
-                        <a href="/admin/brands" class='sidebar-link'>
-                            <i class="bi bi-person-badge"></i>
-                            <span>Merek</span>
-                        </a>
-                    </li>
 
-                    {{-- <li class="sidebar-item {{ $active == 'dash_events' ? 'active' : '' }}">
+                <li class="sidebar-title">Menu</li>
+                <li class="sidebar-item {{ $active == 'dash_brands' ? 'active' : '' }}">
+                    <a href="/admin/brands" class='sidebar-link'>
+                        <i class="bi bi-person-badge"></i>
+                        <span>Merek</span>
+                    </a>
+                </li>
+
+                {{-- <li class="sidebar-item {{ $active == 'dash_events' ? 'active' : '' }}">
                         <a href="/admin/events" class='sidebar-link'>
                             <i class="bi bi-person-plus"></i>
                             <span>Event</span>
@@ -156,7 +162,7 @@
                             <span>Daftar UMKM</span>
                         </a>
                     </li> --}}
-{{--     
+                {{--     
                     <li class="sidebar-title">Jabatan</li>
                     <li class="sidebar-item {{ $active == 'dash_position' ? 'active' : '' }}">
                         <a href="/dashboard/position" class='sidebar-link'>
@@ -221,7 +227,7 @@
                 @endcan
 --}}
 
-                
+
                 <li class="sidebar-title">Account</li>
 
                 <li class="sidebar-item">
@@ -232,7 +238,7 @@
                             <span>Logout</span>
                         </a>
                     </form>
-                </li> 
+                </li>
             </ul>
         </div>
     </div>
