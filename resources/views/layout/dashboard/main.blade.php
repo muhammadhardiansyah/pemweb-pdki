@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mpok Sinah Klamben</title>
+    <title>Dashboard - PEMWEB - PDKI</title>
     <link href="{{ asset('favicon.ico') }}" rel="icon">
     {{-- dont put in bottom. make error in dashboard! --}}
     <link rel="stylesheet" href="{{ asset('/dist/assets/css/shared/iconly.css') }}">

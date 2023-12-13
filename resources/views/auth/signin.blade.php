@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex align-items-center justify-content-center border" style="height: 100vh">
         <div class="col-lg-6 col-md-10 rounded" style="background-color: #FFFFFF;">
             <div class="col-12 pt-4 px-4 text-end">
-                <a href="/posts">
+                <a href="/login">
                     <i class="bi bi-x-circle" style="font-size: 2rem; color: red;"></i>
                 </a>
             </div>

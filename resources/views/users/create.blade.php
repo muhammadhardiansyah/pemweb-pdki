@@ -10,7 +10,7 @@
         <h3 class="text-center">Add User</h3>
     </div>
 
-    <form action="/admin/users" method="post">
+    <form action="/admin/users" method="post" enctype="multipart/form-data">
         @csrf
         <div class="col-lg-10 mx-auto">
             <div class="form-floating mb-3">
@@ -62,7 +62,7 @@
                         {{ $message }}
                     </div>
                 @enderror
-            </div>
+            </div> --}}
             <div class="form-floating mb-3">
                 <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
                     placeholder="Masukkan judul" value="{{ old('address') }}">
@@ -73,7 +73,18 @@
                     </div>
                 @enderror
             </div>
-            <div class="form-floating mb-3">
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Masukkan Foto</label>
+                <img class="img-preview img-fluid mb-3 col-sm-5">
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            {{-- <div class="form-floating mb-3">
                 <select class="form-select @error('roles_id') is-invalid @enderror" name="roles_id"
                     aria-label="Floating label select example" required>
                     <option {{ old('roles_id') == '' ? 'selected' : '' }} value="">Role</option>

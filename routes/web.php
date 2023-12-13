@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardBrandController;
 use App\Http\Controllers\DashboardAnnouncementController;
+use App\Http\Controllers\HomeController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -39,9 +40,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('/', function () {
-    return view('auth/login');
-})->middleware('guest');
+Route::get('/', function () {return view('home');})->middleware('guest');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest'); 
 Route::post('/login', [LoginController::class, 'authenticate']); 
@@ -69,4 +68,6 @@ Route::resource('/admin/announcements', DashboardAnnouncementController::class)-
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/home/search', [HomeController::class, 'search'])->name('search');
+Route::get('/home/search/{id}', [HomeController::class, 'show'])->name('show');
