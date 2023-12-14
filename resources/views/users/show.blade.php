@@ -12,9 +12,14 @@
                     <div class="card-body">
                         <div class="container col-lg-8 col-md-8 mb-3">
                             <img class="w-100 active mb-3 text-center"
-                                src="{{ asset('storage/' . $announcement->data['logos']) }}">
-                            <h3 class="text-center">{{ $announcement->data['name'] }}</h3>
-                            <p class="text-center">{{ $announcement->data['owner'] }}</p>
+                            @if ($user->image)
+                                src="{{ asset('storage/'.$user->image) }}"
+                            @else
+                                src="{{ asset('image/faces/2.jpg') }}"
+                            @endif
+                            >
+                            <h3 class="text-center">{{ $user->name }}</h3>
+                            <p class="text-center">{{ $user->email }}</p>
                         </div>
                     </div>
                 </div>
@@ -25,28 +30,35 @@
                         <div class="card-body">
                             <div class="form-body">
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-12 mb-3">
                                         <div class="form-group">
-                                            <label>Nama Merek</label>
+                                            <label>Nama</label>
                                             <input type="text" class="form-control"
-                                                value="{{ $announcement->data['name'] }}" readonly>
+                                                value="{{ $user->name }}" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 mb-3">
                                         <div class="form-group">
-                                            <label>Pemilik</label>
+                                            <label>Username</label>
                                             <input type="text" class="form-control"
-                                                value="{{ $announcement->data['owner'] }}" readonly>
+                                                value="{{ $user->username }}" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 mb-3">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control"
+                                                value="{{ $user->email }}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-3">
                                         <div class="form-group">
                                             <label>Alamat</label>
                                             <input type="text" class="form-control"
-                                                value="{{ $announcement->data['address'] }}" readonly>
+                                                value="{{ $user->address }}" readonly>
                                         </div>
                                     </div>
-                                    @if ($announcement->data['decision'] == 1)
+                                    {{-- @if ($announcement->data['decision'] == 1)
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Status Verifikasi</label>
@@ -84,9 +96,16 @@
                                         </div>
                                         <div class="col-12 d-flex justify-content-end">
                                             <a href="/admin/brands/{{ $announcement->data['id_brand'] }}/edit" class="btn btn-warning me-1 mb-1 text-black"><i class="bi bi-pencil-square me-1"></i>Edit Pengajuan Merek</a>
-                                            {{-- <button type="submit" class="btn btn-primary me-1 mb-1">Edit Pengajuan Merek</button> --}}
                                         </div>
-                                    @endif
+                                    @endif --}}
+                                    <div class="col-12">
+                                        <div class="form-group d-flex justify-content-end">
+                                            <a href="/admin/users/{{ auth()->user()->id }}/edit" class="btn btn-warning text-black">
+                                                <i class="bi bi-pencil-square me-1"></i>
+                                                <span class="">Edit Data</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

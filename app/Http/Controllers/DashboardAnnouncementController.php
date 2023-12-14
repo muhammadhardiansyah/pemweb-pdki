@@ -40,10 +40,16 @@ class DashboardAnnouncementController extends Controller
     {
         $announcement = auth()->user()->Notifications->find($id);
         $announcement->markAsRead();
-        return view('announcements.show', [
-            'active'=> 'dash_announce',
-            'announcement' => $announcement,
-        ]);
+        if($announcement->type == "App\Notifications\HelloNotification"){
+            return redirect('/admin/users/'.$announcement->notifiable_id);
+        }
+        else {
+            return view('announcements.show', [
+                'active'=> 'dash_announce',
+                'announcement' => $announcement,
+            ]);
+        }
+        
     }
 
     /**

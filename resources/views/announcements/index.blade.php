@@ -41,112 +41,159 @@
                             @forelse ($announcements as $announcement)
                                 @if ($announcement->unread())
                                     <tr class="font-bold opacity-100">
-                                @else
+                                    @else
                                     <tr class="opacity-50">
                                 @endif
-                                    @if ($announcement->data['decision'] == 1)
-                                        <td class="col-2">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="avatar avatar-xl bg-success">
-                                                    <span class="avatar-content">
-                                                        <i class="bi bi-clipboard-check-fill"></i>
-                                                    </span>
-                                                </div>
+                                @if ($announcement->data['decision'] == 1)
+                                    <td class="col-2">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="avatar avatar-xl bg-success">
+                                                <span class="avatar-content">
+                                                    <i class="bi bi-clipboard-check-fill"></i>
+                                                </span>
+                                            </div>
 
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class=" mb-0">{{ $announcement->data['name'] }}</p>
+                                        <p class=" text-primary">
+                                            {{ $announcement->created_at->diffForHumans() }}</p>
+                                        <p class="mb-1">Selamat! {{ $announcement->data['name'] }} sudah
+                                            disetujui!
+                                        </p>
+                                        <a class="btn btn-primary bg-gradient"
+                                            href="/admin/announcements/{{ $announcement->id }}">
+                                            <i class="bi bi-eye-fill"></i>
+                                            <span>Lihat</span>
+                                        </a>
+                                        <form action="/admin/announcements/{{ $announcement->id }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger bg-gradient"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                @elseif($announcement->data['decision'] == 0)
+                                    <td class="col-2">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="avatar avatar-xl bg-danger">
+                                                <span class="avatar-content">
+                                                    <i class="bi bi-clipboard2-x-fill"></i>
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0">{{ $announcement->data['name'] }}</p>
-                                            <p class=" text-primary">
-                                                {{ $announcement->created_at->diffForHumans() }}</p>
-                                            <p class="mb-1">Selamat! {{ $announcement->data['name'] }} sudah
-                                                disetujui!
-                                            </p>
-                                            <a class="btn btn-primary bg-gradient" href="/admin/announcements/{{ $announcement->id }}">
-                                                <i class="bi bi-eye-fill"></i>
-                                                <span>Lihat</span>
-                                            </a>
-                                            <form action="/admin/announcements/{{ $announcement->id }}" method="POST" class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger bg-gradient"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                    <span>Hapus</span>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    @elseif($announcement->data['decision'] == 0)
-                                        <td class="col-2">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="avatar avatar-xl bg-danger">
-                                                    <span class="avatar-content">
-                                                        <i class="bi bi-clipboard2-x-fill"></i>
-                                                    </span>
-                                                </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class=" mb-0">{{ $announcement->data['name'] }}</p>
+                                        <p class=" text-primary">
+                                            {{ $announcement->created_at->diffForHumans() }}</p>
+                                        <p class=" mb-1">Maaf, {{ $announcement->data['name'] }} ditolak.
+                                        </p>
+                                        <a class="btn btn-primary bg-gradient"
+                                            href="/admin/announcements/{{ $announcement->id }}">
+                                            <i class="bi bi-eye-fill"></i>
+                                            <span>Lihat</span>
+                                        </a>
+                                        <form action="/admin/announcements/{{ $announcement->id }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger bg-gradient"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                @elseif($announcement->data['decision'] == 5)
+                                    <td class="col-2">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="avatar avatar-xl bg-success text-dark">
+                                                <span class="avatar-content">
+                                                    <i class="bi bi-emoji-smile-fill" style="font-size:large"></i>
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0">{{ $announcement->data['name'] }}</p>
-                                            <p class=" text-primary">
-                                                {{ $announcement->created_at->diffForHumans() }}</p>
-                                            <p class=" mb-1">Maaf, {{ $announcement->data['name'] }} ditolak.
-                                            </p>
-                                            <a class="btn btn-primary bg-gradient" href="/admin/announcements/{{ $announcement->id }}">
-                                                <i class="bi bi-eye-fill"></i>
-                                                <span>Lihat</span>
-                                            </a>
-                                            <form action="/admin/announcements/{{ $announcement->id }}" method="POST" class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger bg-gradient"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                    <span>Hapus</span>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    @else
-                                        <td class="col-2">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <div class="avatar avatar-xl bg-warning text-dark">
-                                                    <span class="avatar-content">
-                                                        <i class="bi bi-clipboard-plus-fill text-black"></i>
-                                                    </span>
-                                                </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class=" mb-0">{{ $announcement->data['username'] }}</p>
+                                        <p class=" text-primary">
+                                            {{ $announcement->created_at->diffForHumans() }}</p>
+                                        <p class=" mb-1">
+                                            Halo! Selamat datang {{ $announcement->data['username'] }}! <br>{{ $announcement->data['notes'] }}
+                                        </p>
+                                        <a class="btn btn-primary bg-gradient"
+                                            href="/admin/announcements/{{ $announcement->id }}">
+                                            <i class="bi bi-eye-fill"></i>
+                                            <span>Lihat</span>
+                                        </a>
+                                        {{-- <a class="btn btn-warning bg-gradient text-black" href="">
+                                            <i class="bi bi-pencil-square"></i>
+                                            <span>Edit</span>
+                                        </a> --}}
+                                        <form action="/admin/announcements/{{ $announcement->id }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger bg-gradient"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </form>
+                                        {{-- <a class="btn btn-danger bg-gradient" href="">
+                                            <i class="bi bi-x-lg"></i>
+                                            <span>Hapus</span>
+                                        </a> --}}
+                                    </td>
+                                @else
+                                    <td class="col-2">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="avatar avatar-xl bg-warning text-dark">
+                                                <span class="avatar-content">
+                                                    <i class="bi bi-clipboard-plus-fill text-black"></i>
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0">{{ $announcement->data['name'] }}</p>
-                                            <p class=" text-primary">
-                                                {{ $announcement->created_at->diffForHumans() }}</p>
-                                            <p class=" mb-1">Maaf, {{ $announcement->data['name'] }} perlu direvisi.
-                                                <br>
-                                                Catatan: <br>{{ $announcement->data['notes'] }}.
-                                            </p>
-                                            <a class="btn btn-primary bg-gradient" href="/admin/announcements/{{ $announcement->id }}">
-                                                <i class="bi bi-eye-fill"></i>
-                                                <span>Lihat</span>
-                                            </a>
-                                            {{-- <a class="btn btn-warning bg-gradient text-black" href="">
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class=" mb-0">{{ $announcement->data['name'] }}</p>
+                                        <p class=" text-primary">
+                                            {{ $announcement->created_at->diffForHumans() }}</p>
+                                        <p class=" mb-1">Maaf, {{ $announcement->data['name'] }} perlu direvisi.
+                                            <br>
+                                            Catatan: <br>{{ $announcement->data['notes'] }}.
+                                        </p>
+                                        <a class="btn btn-primary bg-gradient"
+                                            href="/admin/announcements/{{ $announcement->id }}">
+                                            <i class="bi bi-eye-fill"></i>
+                                            <span>Lihat</span>
+                                        </a>
+                                        {{-- <a class="btn btn-warning bg-gradient text-black" href="">
                                                 <i class="bi bi-pencil-square"></i>
                                                 <span>Edit</span>
                                             </a> --}}
-                                            <form action="/admin/announcements/{{ $announcement->id }}" method="POST" class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-danger bg-gradient"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                    <span>Hapus</span>
-                                                </button>
-                                            </form>
-                                            {{-- <a class="btn btn-danger bg-gradient" href="">
+                                        <form action="/admin/announcements/{{ $announcement->id }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger bg-gradient"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </form>
+                                        {{-- <a class="btn btn-danger bg-gradient" href="">
                                                 <i class="bi bi-x-lg"></i>
                                                 <span>Hapus</span>
                                             </a> --}}
-                                        </td>
-                                    @endif
+                                    </td>
+                                @endif
                                 </tr>
                             @empty
                                 <tr>

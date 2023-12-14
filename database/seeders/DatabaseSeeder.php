@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'username' => 'admin',
             'email' => 'ardana.629@gmail.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'address' => 'Blitar'
         ]);
 
         Brand::factory(10)->create();

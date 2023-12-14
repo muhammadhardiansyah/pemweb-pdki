@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\HelloNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -28,6 +29,9 @@ class SigninController extends Controller
 
         event(new Registered($user));
         
+        $newUser = User::find($user->id);
+        $newUser->notify(new HelloNotification($newUser));
+
         return redirect('/login')->with('success', 'Registration successfully! Please Login');
         // return redirect('/verification-notification');
     }

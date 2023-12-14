@@ -52,8 +52,9 @@ Route::post('/signin', [SigninController::class, 'store'])->middleware('guest');
 Route::get('/admin', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
 
 //User
-Route::resource('/admin/users', DashboardUserController::class)->except('show')->middleware(['auth','verified']);
-
+Route::resource('/admin/users', DashboardUserController::class)->middleware(['auth','verified']);
+Route::get('/admin/users/{id}/security', [DashboardUserController::class, 'security'])->middleware(['auth','verified']);
+Route::post('/admin/users/changePassword', [DashboardUserController::class, 'changePassword']);
 
 //Brand
 Route::resource('/admin/brands', DashboardBrandController::class)->middleware(['auth','verified']);

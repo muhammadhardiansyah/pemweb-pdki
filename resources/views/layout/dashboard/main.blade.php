@@ -55,7 +55,7 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-lg-0">
-                                <li class="nav-item dropdown me-1">
+                                {{-- <li class="nav-item dropdown me-1">
                                     <a class="nav-link active dropdown-toggle text-gray-600" href="#"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class='bi bi-envelope bi-sub fs-4'></i>
@@ -66,7 +66,7 @@
                                         </li>
                                         <li><a class="dropdown-item" href="#">No new mail</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item dropdown me-3">
                                     <a class="nav-link active dropdown-toggle text-gray-600" href="#"
                                         data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -83,7 +83,8 @@
                                         </li>
                                         @forelse (auth()->user()->Notifications->take(3) as $notification)
                                             <li class="dropdown-item notification-item">
-                                                <a class="d-flex align-items-center position-relative" href="/admin/announcements/{{ $notification->id }}">
+                                                <a class="d-flex align-items-center position-relative"
+                                                    href="/admin/announcements/{{ $notification->id }}">
                                                     @if ($notification->data['decision'] == 1)
                                                         <div class="notification-icon bg-success">
                                                             <i class="bi bi-clipboard-check-fill"></i>
@@ -96,7 +97,6 @@
                                                                 Merek: {{ $notification->data['name'] }}
                                                             </p>
                                                         </div>
-                                                        
                                                     @elseif($notification->data['decision'] == 0)
                                                         <div class="notification-icon bg-danger">
                                                             <i class="bi bi-clipboard2-x-fill"></i>
@@ -107,6 +107,18 @@
                                                             </p>
                                                             <p class="notification-subtitle font-thin text-sm">
                                                                 Merek: {{ $notification->data['name'] }}
+                                                            </p>
+                                                        </div>
+                                                    @elseif($notification->data['decision'] == 5)
+                                                        <div class="notification-icon bg-primary">
+                                                            <i class="bi bi-emoji-smile-fill"></i>
+                                                        </div>
+                                                        <div class="notification-text ms-4">
+                                                            <p class="notification-title font-bold">
+                                                                Halo {{ $notification->data['username'] }}!
+                                                            </p>
+                                                            <p class="notification-subtitle font-thin text-sm">
+                                                                {{ $notification->data['notes'] }}
                                                             </p>
                                                         </div>
                                                     @else
@@ -123,7 +135,8 @@
                                                         </div>
                                                     @endif
                                                     @if ($notification->unread())
-                                                        <span class="position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger">
+                                                        <span
+                                                            class="position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger">
                                                             new
                                                         </span>
                                                     @endif
@@ -187,7 +200,10 @@
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="assets/images/faces/1.jpg">
+                                                <img
+                                                    @if (auth()->user()->image) src="{{ asset('storage/' . auth()->user()->image) }}"
+                                                @else
+                                                    src="{{ asset('image/faces/2.jpg') }}" @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -195,19 +211,21 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                                     style="min-width: 11rem;">
                                     <li>
-                                        <h6 class="dropdown-header">Hello, John!</h6>
+                                        <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-person me-2"></i> My
-                                            Profile</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
+                                    <li><a class="dropdown-item" href="/admin/users/{{ auth()->user()->id }}"><i
+                                                class="icon-mid bi bi-person me-2"></i>
+                                            Profile
+                                        </a></li>
+                                    <li><a class="dropdown-item"
+                                            href="/admin/users/{{ auth()->user()->id }}/security"><i
                                                 class="icon-mid bi bi-gear me-2"></i>
-                                            Settings</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
+                                            Security</a></li>
+                                    {{-- <li><a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-wallet me-2"></i>
                                             Wallet</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
+                                    <li> --}}
+                                    <hr class="dropdown-divider">
                                     </li>
                                     <li><a class="dropdown-item" href="#"><i
                                                 class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
