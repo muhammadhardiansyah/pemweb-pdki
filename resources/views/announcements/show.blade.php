@@ -68,6 +68,20 @@
                                                 <textarea class="form-control" rows="3" readonly>{{ $announcement->data['notes'] }}</textarea>
                                             </div>
                                         </div>
+                                    @elseif($announcement->data['decision'] == 2)
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Status Verifikasi</label>
+                                                <div class="alert alert-warning"><i
+                                                        class="bi bi-exclamation-triangle pe-1"></i>Belum Diverifikasi</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <a href="/admin/brands/{{ $announcement->data['id_brand'] }}/edit"
+                                                class="btn btn-warning me-1 mb-1 text-black"><i
+                                                    class="bi bi-pencil-square me-1"></i>Edit Pengajuan Merek</a>
+                                            {{-- <button type="submit" class="btn btn-primary me-1 mb-1">Edit Pengajuan Merek</button> --}}
+                                        </div>
                                     @else
                                         <div class="col-12">
                                             <div class="form-group">
@@ -83,7 +97,9 @@
                                             </div>
                                         </div>
                                         <div class="col-12 d-flex justify-content-end">
-                                            <a href="/admin/brands/{{ $announcement->data['id_brand'] }}/edit" class="btn btn-warning me-1 mb-1 text-black"><i class="bi bi-pencil-square me-1"></i>Edit Pengajuan Merek</a>
+                                            <a href="/admin/brands/{{ $announcement->data['id_brand'] }}/edit"
+                                                class="btn btn-warning me-1 mb-1 text-black"><i
+                                                    class="bi bi-pencil-square me-1"></i>Edit Pengajuan Merek</a>
                                             {{-- <button type="submit" class="btn btn-primary me-1 mb-1">Edit Pengajuan Merek</button> --}}
                                         </div>
                                     @endif

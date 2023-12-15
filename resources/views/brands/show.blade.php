@@ -6,75 +6,109 @@
         </a>
     </header>
 
-    <div class="page-heading">
-        <h3 class="text-center">Edit Pengajuan Merek</h3>
-    </div>
-
-    <form>
-        @csrf
-        <div class="col-lg-10 mx-auto">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name='name' placeholder="Masukkan nama usaha" value="{{ old('name', $brand->name) }}" required autofocus disabled>
-                <label for="floatingInput">Nama Merek</label>
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container col-lg-8 col-md-8 mb-3">
+                            <img class="w-100 active mb-3 text-center" src="{{ asset('storage/' . $brand->logos) }}">
+                            <h3 class="text-center">{{ $brand->name }}</h3>
+                            <p class="text-center">{{ $brand->owner }}</p>
+                        </div>
                     </div>
-                @enderror
+                </div>
             </div>
-            
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error("address") is-invalid @enderror" id="address"
-                    name="address" placeholder="Masukkan nama usaha" value="{{ old("address", $brand->address) }}" required disabled>
-                <label for="floatingInput">Alamat</label>
-                @error("address")
-                    <div class="invalid-feedback">
-                        {{ $message }}
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Nama Merek</label>
+                                            <input type="text" class="form-control" value="{{ $brand->name }}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Pemilik</label>
+                                            <input type="text" class="form-control" value="{{ $brand->owner }}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Alamat</label>
+                                            <input type="text" class="form-control" value="{{ $brand->address }}"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                    @if ($brand->decision == 1)
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Status Verifikasi</label>
+                                                <div class="alert alert-success"><i class="bi bi-check-circle pe-1"></i> Ok!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @elseif($brand->decision == 0)
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Status Verifikasi</label>
+                                                <div class="alert alert-danger"><i class="bi bi-x-circle pe-1"></i>Ditolak
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Catatan</label>
+                                                <textarea class="form-control" rows="3" readonly>{{ $brand->notes }}</textarea>
+                                            </div>
+                                        </div>
+                                    @elseif($brand->decision == 2)
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Status Verifikasi</label>
+                                                <div class="alert alert-warning"><i
+                                                        class="bi bi-exclamation-triangle pe-1"></i>Belum Diverifikasi</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <a href="/admin/brands/{{ $brand->id }}/edit"
+                                                class="btn btn-warning me-1 mb-1 text-black"><i
+                                                    class="bi bi-pencil-square me-1"></i>Edit Pengajuan Merek</a>
+                                            {{-- <button type="submit" class="btn btn-primary me-1 mb-1">Edit Pengajuan Merek</button> --}}
+                                        </div>
+                                    @else
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Status Verifikasi</label>
+                                                <div class="alert alert-warning"><i
+                                                        class="bi bi-exclamation-triangle pe-1"></i>Revisi</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Catatan</label>
+                                                <textarea class="form-control" rows="3" readonly>{{ $brand->notes }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <a href="/admin/brands/{{ $brand->id }}/edit"
+                                                class="btn btn-warning me-1 mb-1 text-black"><i
+                                                    class="bi bi-pencil-square me-1"></i>Edit Pengajuan Merek</a>
+                                            {{-- <button type="submit" class="btn btn-primary me-1 mb-1">Edit Pengajuan Merek</button> --}}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                @enderror
+                </div>
             </div>
-            
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error("owner") is-invalid @enderror" id="owner"
-                    name="owner" placeholder="Masukkan nama usaha" value="{{ old("owner", $brand->owner) }}" required disabled>
-                <label for="floatingInput">Pemilik Usaha</label>
-                @error("owner")
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="logos" class="form-label">Masukkan Logo Usaha</label>
-                @if ($brand->logos)
-                    <img class="img-preview img-fluid mb-3 col-sm-5 d-block" src="{{ asset("/storage/$brand->logos") }}">    
-                @endif
-            </div>
-
-            <div class="mb-3">
-                <label for="Input">Surat Usaha</label>
-                <input type="text" class="form-control @error("certificate") is-invalid @enderror" id="certificate"
-                    name="certificate" placeholder="Masukkan surat usaha" value="{{ old("certificate", $brand->certificate) }}" disabled>
-            </div>
-
-            <div class="mb-3">
-                <label for="signature" class="form-label">Masukkan Tanda Tangan</label>
-                @if ($brand->signature)
-                    <img class="img-preview2 img-fluid mb-3 col-sm-5 d-block" src="{{ asset("/storage/$brand->signature") }}">
-                @endif
-            </div>
-
-            <a href="/admin/brands"class="btn btn-outline-warning">
-                <i class="bi bi-plus-square mr-1"></i>
-                <span>Back</span>
-            </a>
-
         </div>
-
-
-    </form>
+    </div>
 
 
     <script>
@@ -107,7 +141,7 @@
                 imgPreview.src = oFREvent.target.result;
             }
         }
-        
+
         function previewImage2() {
             const image = document.querySelector('#image2');
             const imgPreview = document.querySelector('.img-preview2');
