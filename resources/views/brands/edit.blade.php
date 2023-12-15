@@ -14,33 +14,83 @@
         @method('put')
         @csrf
         <div class="col-lg-10 mx-auto">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                    name='name' placeholder="Masukkan nama usaha" value="{{ old('name', $brand->name) }}" required autofocus>
-                <label for="floatingInput">Nama Merek</label>
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+            @if (session()->has('name'))
+                <div class="input-group mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name='name' placeholder="Masukkan nama merek" value="{{ session('name') }}" required
+                            autofocus {{ session()->forget('name') }}>
+                        <label for="floatingInput">Nama Merek</label>
                     </div>
-                @enderror
-            </div>
-            
+                    <button class="btn btn-primary" type="button" id="button-search">Search</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Cek Kemiripan Merek pada Database (PDKI)</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p>Merek yang akan anda ajukan, dicek terlebih dahulu kemiripannya dengan beberapa merek yang
+                                sudah terdaftar lebih dulu di Database PDKI</p>
+                            <div class="table-responsive">
+                                <table class="table table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Merek</th>
+                                            <th>Similiarity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($responses as $item)
+                                            <tr>
+                                                <td>{{ $item['id'] }}</td>
+                                                <td class="text-bold-500">{{ $item['name'] }}</td>
+                                                <td class="text-bold-500">{{ $item['similiarity'] }}%</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td class="col-auto text-center">
+                                                    <p class=" mb-0">Tidak ada data
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforelse
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="input-group mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name='name' placeholder="Masukkan nama merek" value="{{ old('name', $brand->name) }}"
+                            required autofocus>
+                        <label for="floatingInput">Nama Merek</label>
+                    </div>
+                    <button class="btn btn-primary" type="button" id="button-search">Search</button>
+                </div>
+            @endif
+
             <div class="form-floating mb-3">
-                <input type="text" class="form-control @error("address") is-invalid @enderror" id="address"
-                    name="address" placeholder="Masukkan nama usaha" value="{{ old("address", $brand->address) }}" required>
+                <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
+                    name="address" placeholder="Masukkan nama usaha" value="{{ old('address', $brand->address) }}" required>
                 <label for="floatingInput">Alamat</label>
-                @error("address")
+                @error('address')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
-            
+
             <div class="form-floating mb-3">
-                <input type="text" class="form-control @error("owner") is-invalid @enderror" id="owner"
-                    name="owner" placeholder="Masukkan nama usaha" value="{{ old("owner", $brand->owner) }}" required>
+                <input type="text" class="form-control @error('owner') is-invalid @enderror" id="owner"
+                    name="owner" placeholder="Masukkan nama usaha" value="{{ old('owner', $brand->owner) }}" required>
                 <label for="floatingInput">Pemilik Usaha</label>
-                @error("owner")
+                @error('owner')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -63,14 +113,15 @@
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
-                @enderror 
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label for="Input">Surat Usaha</label>
-                <input type="file" class="form-control @error("certificate") is-invalid @enderror" id="certificate"
-                    name="certificate" placeholder="Masukkan surat usaha" value="{{ old("certificate", $brand->certificate) }}">
-                @error("certificate")
+                <input type="file" class="form-control @error('certificate') is-invalid @enderror" id="certificate"
+                    name="certificate" placeholder="Masukkan surat usaha"
+                    value="{{ old('certificate', $brand->certificate) }}">
+                @error('certificate')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -81,7 +132,8 @@
                 <label for="signature" class="form-label">Masukkan Tanda Tangan</label>
                 <input type="hidden" name="oldSignature" value="{{ $brand->signature }}">
                 @if ($brand->signature)
-                    <img class="img-preview2 img-fluid mb-3 col-sm-5 d-block" src="{{ asset("/storage/$brand->signature") }}">
+                    <img class="img-preview2 img-fluid mb-3 col-sm-5 d-block"
+                        src="{{ asset("/storage/$brand->signature") }}">
                     <input class="form-control @error('signature') is-invalid @enderror" type="file" id="image2"
                         name="signature" onchange="previewImage2()">
                 @else
@@ -93,7 +145,7 @@
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
-                @enderror 
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-outline-warning">
@@ -137,7 +189,7 @@
                 imgPreview.src = oFREvent.target.result;
             }
         }
-        
+
         function previewImage2() {
             const image = document.querySelector('#image2');
             const imgPreview = document.querySelector('.img-preview2');
@@ -151,5 +203,20 @@
                 imgPreview.src = oFREvent.target.result;
             }
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#button-search').click(function() {
+                // Ambil nilai dari input dengan id 'name'
+                var nameValue = $('#name').val();
+
+                // Buat URL dengan menggunakan nilai dari input
+                var url = 'edit/check?name=' + encodeURIComponent(nameValue);
+
+                // Navigasikan ke URL
+                window.location.href = url;
+            });
+        });
     </script>
 @endsection

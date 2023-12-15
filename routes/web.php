@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardBrandController;
 use App\Http\Controllers\DashboardAnnouncementController;
+use App\Http\Controllers\DataPDKIController;
 use App\Http\Controllers\HomeController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -61,6 +62,9 @@ Route::resource('/admin/brands', DashboardBrandController::class)->middleware(['
 Route::get('/admin/brands/accept/{brand:id}', [DashboardBrandController::class, 'accept']);
 Route::post('/admin/brands/reject', [DashboardBrandController::class, 'reject']);
 Route::post('/admin/brands/revise', [DashboardBrandController::class, 'revise']);
+Route::get('/admin/brands/create/check', [DashboardBrandController::class, 'checkCreate']);
+Route::get('/admin/brands/{id}/edit/check', [DashboardBrandController::class, 'checkEdit']);
+
 // Auth::routes();
 
 //Announcements
