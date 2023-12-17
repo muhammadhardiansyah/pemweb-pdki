@@ -1,4 +1,4 @@
-{{ dd($brands) }}
+{{ dd(auth()->user()->hasRole('admin')) }}
 <?php //$myPosts = $posts->where('user_id', auth()->user()->id) ?>
 @extends('layout.dashboard.main')
 

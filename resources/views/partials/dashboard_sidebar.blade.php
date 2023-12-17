@@ -58,7 +58,8 @@
                         <span>Announcement</span>
                     </a>
                     @if (auth()->user()->unreadNotifications->count())
-                        <span class="position-absolute {{ $active == 'dash_announce' ? 'top-0' : 'top-50' }} start-100 translate-middle badge rounded-pill bg-danger">
+                        <span
+                            class="position-absolute {{ $active == 'dash_announce' ? 'top-0' : 'top-50' }} start-100 translate-middle badge rounded-pill bg-danger">
                             <i class="bi bi-bell-fill"></i>
                             {{ auth()->user()->unreadNotifications->count() }}
                         </span>
@@ -124,19 +125,43 @@
                     </li>
 
                     --}}
-                <li class="sidebar-title">ADMINISTRATOR</li>
-                <li class="sidebar-item {{ $active == 'dash_users' ? 'active' : '' }}">
-                    <a href="/admin/users" class='sidebar-link'>
-                        <i class="bi bi-person-lines-fill"></i>
-                        <span>Users</span>
+                @role('user')
+                <li class="sidebar-title">Permohonan</li>
+                <li class="sidebar-item {{ $active == 'dash_brands' ? 'active' : '' }}">
+                    <a href="/admin/brands" class='sidebar-link'>
+                        <i class="bi bi-person-badge"></i>
+                        <span>Merek</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ $active == 'dash_adm_announce' ? 'active' : '' }}">
-                    <a href="/admin/adminAnnouncements" class='sidebar-link'>
-                        <i class="bi bi-person-lines-fill"></i>
-                        <span>Announcements</span>
-                    </a>
-                </li>
+                @endrole
+
+                @role('admin')
+                    <li class="sidebar-title">ADMINISTRATOR</li>
+                    <li class="sidebar-item {{ $active == 'dash_users' ? 'active' : '' }}">
+                        <a href="/admin/users" class='sidebar-link'>
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ $active == 'dash_brands' ? 'active' : '' }}">
+                        <a href="/admin/brands" class='sidebar-link'>
+                            <i class="bi bi-person-badge"></i>
+                            <span>Merek</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ $active == 'dash_adm_announce' ? 'active' : '' }}">
+                        <a href="/admin/adminAnnouncements" class='sidebar-link'>
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span>Announcements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ $active == 'dash_roles' ? 'active' : '' }}">
+                        <a href="/admin/roles" class='sidebar-link'>
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span>Authorization</span>
+                        </a>
+                    </li>
+                @endrole
 
                 {{-- <li class="sidebar-item {{ $active == 'add_users' ? 'active' : '' }}">
                         <a href="/users/create" class='sidebar-link'>
@@ -145,14 +170,6 @@
                         </a>
                     </li> --}}
 
-
-                <li class="sidebar-title">Menu</li>
-                <li class="sidebar-item {{ $active == 'dash_brands' ? 'active' : '' }}">
-                    <a href="/admin/brands" class='sidebar-link'>
-                        <i class="bi bi-person-badge"></i>
-                        <span>Merek</span>
-                    </a>
-                </li>
 
                 {{-- <li class="sidebar-item {{ $active == 'dash_events' ? 'active' : '' }}">
                         <a href="/admin/events" class='sidebar-link'>
@@ -234,7 +251,7 @@
 --}}
 
 
-                <li class="sidebar-title">Account</li>
+                {{-- <li class="sidebar-title">Account</li>
 
                 <li class="sidebar-item">
                     <form action="/logout" id="logout" method="POST">
@@ -244,7 +261,7 @@
                             <span>Logout</span>
                         </a>
                     </form>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

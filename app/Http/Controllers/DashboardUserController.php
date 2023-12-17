@@ -52,7 +52,7 @@ class DashboardUserController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+        User::create($validatedData)->assignRole('user');
 
         return redirect('/admin/users')->with('success', 'Pengguna baru sudah ditambahkan!');
     }
@@ -88,7 +88,7 @@ class DashboardUserController extends Controller
             'name'              => 'required|min:3|max:255',
             'username'          => 'required|min:3|max:255',
             'address'           => 'required',
-            'image'             => 'required|image|file|max:2048',
+            'image'             => 'image|file|max:2048',
 
         ];
 

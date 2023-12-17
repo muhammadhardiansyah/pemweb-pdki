@@ -100,7 +100,7 @@
                                     @endif --}}
                                     <div class="col-12">
                                         <div class="form-group d-flex justify-content-end">
-                                            <a href="/admin/users/{{ auth()->user()->id }}/edit" class="btn btn-warning text-black">
+                                            <a href="/admin/profiles/{{ auth()->user()->id }}/edit" class="btn btn-warning text-black">
                                                 <i class="bi bi-pencil-square me-1"></i>
                                                 <span class="">Edit Data</span>
                                             </a>

@@ -22,10 +22,20 @@ class DashboardBrandController extends Controller
      */
     public function index()
     {
-        return view('brands.index', [
-            'active' => 'dash_brands',
-            'brands' => Brand::latest()->get()
-        ]);
+        if (auth()->user()->hasRole('admin'))
+        {
+            return view('brands.index', [
+                'active' => 'dash_brands',
+                'brands' => Brand::latest()->get()
+            ]);
+        }
+        else
+        {
+            return view('brands.index', [
+                'active' => 'dash_brands',
+                'brands' => Brand::where('user_id',auth()->user()->id)->latest()->get()
+            ]);
+        }
     }
 
     private function similiarity(String $string1, String $string2)

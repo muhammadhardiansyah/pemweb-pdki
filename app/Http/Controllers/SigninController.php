@@ -25,7 +25,7 @@ class SigninController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']); 
 
-        $user = User::create($validatedData);
+        $user = User::create($validatedData)->assignRole('user');
 
         event(new Registered($user));
         

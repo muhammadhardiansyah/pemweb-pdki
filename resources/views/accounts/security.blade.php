@@ -35,7 +35,7 @@
                                     aria-label="Close"></button>
                             </div>
                         @endif
-                        <form action="/admin/users/changePassword" method="POST">
+                        <form action="/admin/profiles/changePassword" method="POST">
                             @csrf
                             <div class="form-body">
                                 <div class="row">
@@ -106,7 +106,7 @@
                             <span>Apakah anda yakin ingin menghapus akun? Setelah anda menekan hapus akun, maka akun Anda
                                 akan dihapus permanen!
                             </span>
-                            <form action="/admin/users/{{ auth()->user()->id }}" method="POST" class="d-inline">
+                            <form action="/admin/profiles/{{ auth()->user()->id }}" method="POST" class="d-inline">
                                 @method('delete')
                                 @csrf
                                 <div class="col-12 d-flex justify-content-end my-3">

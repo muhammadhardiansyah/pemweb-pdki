@@ -41,7 +41,7 @@ class DashboardAnnouncementController extends Controller
         $announcement = auth()->user()->Notifications->find($id);
         $announcement->markAsRead();
         if($announcement->type == "App\Notifications\HelloNotification"){
-            return redirect('/admin/users/'.$announcement->notifiable_id);
+            return redirect('/admin/profiles/'.$announcement->notifiable_id);
         }
         else {
             return view('announcements.show', [

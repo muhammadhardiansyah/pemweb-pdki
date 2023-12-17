@@ -208,7 +208,7 @@
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
                                             <h6 class="mb-0 text-gray-600">{{ auth()->user()->name }}</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                            <p class="mb-0 text-sm text-gray-600">{{ auth()->user()->hasRole('admin') == true ? 'Administrator' : 'User' }}</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -225,12 +225,12 @@
                                     <li>
                                         <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="/admin/users/{{ auth()->user()->id }}"><i
+                                    <li><a class="dropdown-item" href="/admin/profiles/{{ auth()->user()->id }}"><i
                                                 class="icon-mid bi bi-person me-2"></i>
                                             Profile
                                         </a></li>
                                     <li><a class="dropdown-item"
-                                            href="/admin/users/{{ auth()->user()->id }}/security"><i
+                                            href="/admin/profiles/{{ auth()->user()->id }}/security"><i
                                                 class="icon-mid bi bi-gear me-2"></i>
                                             Security</a></li>
                                     {{-- <li><a class="dropdown-item" href="#"><i
@@ -239,8 +239,18 @@
                                     <li> --}}
                                     <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                                    <li>
+                                        <form action="/logout" id="logout" method="POST">
+                                            @csrf
+                                            <a onclick="submit()" class='dropdown-item btn'>
+
+                                                <i class="bi bi-box-arrow-left me-2"></i>
+                                                <span>Logout</span>
+                                            </a>
+                                        </form>
+                                    </li>
+                                    {{-- <li><a class="dropdown-item" href="#"><i
+                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li> --}}
                                 </ul>
                             </div>
                         </div>
