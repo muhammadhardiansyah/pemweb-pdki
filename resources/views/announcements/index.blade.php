@@ -44,7 +44,7 @@
                                     @else
                                     <tr class="opacity-50">
                                 @endif
-                                @if ($announcement->data['decision'] == 1)
+                                @if ($announcement->type == 'App\Notifications\ApproveBrandNotification')
                                     <td class="col-2">
                                         <div class="d-flex align-items-center justify-content-center">
                                             <div class="avatar avatar-xl bg-success">
@@ -78,7 +78,7 @@
                                             </button>
                                         </form>
                                     </td>
-                                @elseif($announcement->data['decision'] == 0)
+                                @elseif($announcement->type == 'App\Notifications\RejectBrandNotification')
                                     <td class="col-2">
                                         <div class="d-flex align-items-center justify-content-center">
                                             <div class="avatar avatar-xl bg-danger">
@@ -110,7 +110,7 @@
                                             </button>
                                         </form>
                                     </td>
-                                @elseif($announcement->data['decision'] == 5)
+                                @elseif($announcement->type == 'App\Notifications\HelloNotification')
                                     <td class="col-2">
                                         <div class="d-flex align-items-center justify-content-center">
                                             <div class="avatar avatar-xl bg-success text-dark">
@@ -125,7 +125,8 @@
                                         <p class=" text-primary">
                                             {{ $announcement->created_at->diffForHumans() }}</p>
                                         <p class=" mb-1">
-                                            Halo! Selamat datang {{ $announcement->data['username'] }}! <br>{{ $announcement->data['notes'] }}
+                                            Halo! Selamat datang {{ $announcement->data['username'] }}!
+                                            <br>{{ $announcement->data['notes'] }}
                                         </p>
                                         <a class="btn btn-primary bg-gradient"
                                             href="/admin/announcements/{{ $announcement->id }}">
@@ -151,7 +152,7 @@
                                             <span>Hapus</span>
                                         </a> --}}
                                     </td>
-                                @else
+                                @elseif($announcement->type == 'App\Notifications\ReviseBrandNotification')
                                     <td class="col-2">
                                         <div class="d-flex align-items-center justify-content-center">
                                             <div class="avatar avatar-xl bg-warning text-dark">
@@ -192,6 +193,47 @@
                                                 <i class="bi bi-x-lg"></i>
                                                 <span>Hapus</span>
                                             </a> --}}
+                                    </td>
+                                @else
+                                    <td class="col-2">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="avatar avatar-xl bg-info">
+                                                <span class="avatar-content">
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class=" mb-0">Pengumuman</p>
+                                        <p class=" text-primary">
+                                            {{ $announcement->created_at->diffForHumans() }}</p>
+                                        <p class=" mb-1">
+                                            {{ $announcement->data['notes'] }}
+                                        </p>
+                                        <a class="btn btn-primary bg-gradient"
+                                            href="/admin/announcements/{{ $announcement->id }}">
+                                            <i class="bi bi-eye-fill"></i>
+                                            <span>Lihat</span>
+                                        </a>
+                                        {{-- <a class="btn btn-warning bg-gradient text-black" href="">
+                                            <i class="bi bi-pencil-square"></i>
+                                            <span>Edit</span>
+                                        </a> --}}
+                                        <form action="/admin/announcements/{{ $announcement->id }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger bg-gradient"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </form>
+                                        {{-- <a class="btn btn-danger bg-gradient" href="">
+                                            <i class="bi bi-x-lg"></i>
+                                            <span>Hapus</span>
+                                        </a> --}}
                                     </td>
                                 @endif
                                 </tr>

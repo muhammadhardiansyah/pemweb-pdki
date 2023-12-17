@@ -124,11 +124,17 @@
                     </li>
 
                     --}}
-                <li class="sidebar-title">User</li>
+                <li class="sidebar-title">ADMINISTRATOR</li>
                 <li class="sidebar-item {{ $active == 'dash_users' ? 'active' : '' }}">
                     <a href="/admin/users" class='sidebar-link'>
                         <i class="bi bi-person-lines-fill"></i>
                         <span>Users</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ $active == 'dash_adm_announce' ? 'active' : '' }}">
+                    <a href="/admin/adminAnnouncements" class='sidebar-link'>
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span>Announcements</span>
                     </a>
                 </li>
 

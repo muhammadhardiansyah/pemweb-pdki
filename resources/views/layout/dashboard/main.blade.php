@@ -85,9 +85,9 @@
                                             <li class="dropdown-item notification-item">
                                                 <a class="d-flex align-items-center position-relative"
                                                     href="/admin/announcements/{{ $notification->id }}">
-                                                    @if ($notification->data['decision'] == 1)
-                                                        <div class="notification-icon bg-success">
-                                                            <i class="bi bi-clipboard-check-fill"></i>
+                                                    @if ($notification->type == 'App\Notifications\ApproveBrandNotification')
+                                                        <div class="notification-icon">
+                                                            <i class="bi bi-clipboard-check-fill text-success"></i>
                                                         </div>
                                                         <div class="notification-text ms-4">
                                                             <p class="notification-title font-bold">
@@ -97,9 +97,9 @@
                                                                 Merek: {{ $notification->data['name'] }}
                                                             </p>
                                                         </div>
-                                                    @elseif($notification->data['decision'] == 0)
-                                                        <div class="notification-icon bg-danger">
-                                                            <i class="bi bi-clipboard2-x-fill"></i>
+                                                    @elseif($notification->type == 'App\Notifications\RejectBrandNotification')
+                                                        <div class="notification-icon">
+                                                            <i class="bi bi-clipboard2-x-fill text-danger"></i>
                                                         </div>
                                                         <div class="notification-text ms-4">
                                                             <p class="notification-title font-bold">
@@ -109,9 +109,9 @@
                                                                 Merek: {{ $notification->data['name'] }}
                                                             </p>
                                                         </div>
-                                                    @elseif($notification->data['decision'] == 5)
-                                                        <div class="notification-icon bg-primary">
-                                                            <i class="bi bi-emoji-smile-fill"></i>
+                                                    @elseif($notification->type == 'App\Notifications\HelloNotification')
+                                                        <div class="notification-icon">
+                                                            <i class="bi bi-emoji-smile-fill text-primary"></i>
                                                         </div>
                                                         <div class="notification-text ms-4">
                                                             <p class="notification-title font-bold">
@@ -121,9 +121,9 @@
                                                                 {{ $notification->data['notes'] }}
                                                             </p>
                                                         </div>
-                                                    @else
-                                                        <div class="notification-icon bg-warning">
-                                                            <i class="bi bi-clipboard-plus-fill"></i>
+                                                    @elseif($notification->type == 'App\Notifications\ReviseBrandNotification')
+                                                        <div class="notification-icon">
+                                                            <i class="bi bi-clipboard-plus-fill text-warning"></i>
                                                         </div>
                                                         <div class="notification-text ms-4">
                                                             <p class="notification-title font-bold">
@@ -132,6 +132,18 @@
                                                             <p class="notification-subtitle font-thin text-sm">
                                                                 Merek: {{ $notification->data['name'] }}
                                                             </p>
+                                                        </div>
+                                                    @else
+                                                        <div class="notification-icon">
+                                                            <i class="bi bi-info-circle-fill text-info"></i>
+                                                        </div>
+                                                        <div class="notification-text ms-4">
+                                                            <p class="notification-title font-bold">
+                                                                Informasi
+                                                            </p>
+                                                            {{-- <p class="notification-subtitle font-thin text-sm">
+                                                                Merek: {{ $notification->data['name'] }}
+                                                            </p> --}}
                                                         </div>
                                                     @endif
                                                     @if ($notification->unread())
@@ -262,7 +274,7 @@
     {{-- Need: Summernote --}}
     <script src="{{ asset('/dist/assets/extensions/summernote/summernote-lite.min.js') }}"></script>
     {{-- <script src="/dist/assets/js/pages/summernote.js"></script> --}}
-
+    @yield('script')
 </body>
 @stack('scripts')
 

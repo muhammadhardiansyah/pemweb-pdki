@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardBrandController;
 use App\Http\Controllers\DashboardAnnouncementController;
+use App\Http\Controllers\DashboardAdminAnnouncementController;
 use App\Http\Controllers\DataPDKIController;
 use App\Http\Controllers\HomeController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -69,6 +70,10 @@ Route::get('/admin/brands/{id}/edit/check', [DashboardBrandController::class, 'c
 
 //Announcements
 Route::resource('/admin/announcements', DashboardAnnouncementController::class)->middleware(['auth','verified']);
+
+//Admin Announcements
+Route::resource('/admin/adminAnnouncements', DashboardAdminAnnouncementController::class)->middleware(['auth','verified']);
+
 
 
 

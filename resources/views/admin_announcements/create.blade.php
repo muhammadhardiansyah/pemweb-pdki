@@ -1,4 +1,8 @@
 @extends('layout.dashboard.main')
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('/dist/assets/extensions/choices.js/public/assets/styles/choices.css') }}">
+@endsection
 @section('container')
     <header class="mb-3">
         <a href="#" class="burger-btn d-block d-xl-none">
@@ -7,25 +11,38 @@
     </header>
 
     <div class="page-heading">
-        <h3 class="text-center">Add User</h3>
+        <h3 class="text-center">Buat Pengumuman</h3>
     </div>
 
-    <form action="/admin/users" method="post">
+    <form action="/admin/adminAnnouncements" method="post" enctype="multipart/form-data">
         @csrf
         <div class="col-lg-10 mx-auto">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="title" name='name'
-                    placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required autofocus>
-                <label for="floatingInput">Nama Lengkap</label>
-                @error('name')
+            <div class="form-group">
+                <label for="floatingInput" class="mb-2">Pengumuman Untuk:</label>
+                <select class="choices form-select @error('for') is-invalid @enderror" name="for" required>
+                    <option {{ old('for') == 'all' ? 'selected' : '' }} value="all">Semua</option>
+                    @foreach ($users as $item)
+                        <option {{ old('for') == "$item->id" ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+                @error('for')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name='username'
-                    placeholder="Masukkan username" value="{{ old('username') }}" required autofocus>
+            <div class="form-group mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Catatan</label>
+                <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" id="exampleFormControlTextarea1" rows="3">{{ old('notes') }}</textarea>
+                @error('notes') 
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            {{-- <div class="form-floating mb-3">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"
+                    name='username' placeholder="Masukkan username" value="{{ old('username') }}" required autofocus>
                 <label for="floatingInput">Nama Panggilan</label>
                 @error('username')
                     <div class="invalid-feedback">
@@ -34,8 +51,8 @@
                 @enderror
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name='email'
-                    placeholder="Masukkan email" value="{{ old('email') }}" required>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                    name='email' placeholder="Masukkan email" value="{{ old('email') }}" required>
                 <label for="floatingInput">Email</label>
                 @error('email')
                     <div class="invalid-feedback">
@@ -44,15 +61,15 @@
                 @enderror
             </div>
             <div class="form-floating mb-3">
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name='password'
-                    placeholder="Masukkan password" required>
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                    name='password' placeholder="Masukkan password" required>
                 <label for="floatingInput">Password</label>
                 @error('password')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
-            </div>
+            </div> --}}
             {{-- <div class="form-floating mb-3">
                 <input type="text" name="numbers" class="form-control @error('numbers') is-invalid @enderror"
                     placeholder="Masukkan judul" value="{{ old('numbers') }}">
@@ -62,8 +79,8 @@
                         {{ $message }}
                     </div>
                 @enderror
-            </div>
-            <div class="form-floating mb-3">
+            </div> --}}
+            {{-- <div class="form-floating mb-3">
                 <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
                     placeholder="Masukkan judul" value="{{ old('address') }}">
                 <label for="floatingInput">Alamat</label>
@@ -73,8 +90,20 @@
                     </div>
                 @enderror
             </div>
-            <div class="form-floating mb-3">
-                <select class="form-select @error('roles_id') is-invalid @enderror" name="roles_id"
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Masukkan Foto</label>
+                <img class="img-preview img-fluid mb-3 col-sm-5">
+                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                    name="image" onchange="previewImage()">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div> --}}
+            {{-- <div class="form-floating mb-3">
+                <select class="form-select @error('for') is-invalid @enderror" name="roles_id"
                     aria-label="Floating label select example" required>
                     <option {{ old('roles_id') == '' ? 'selected' : '' }} value="">Role</option>
                     @foreach ($roles as $authorization)
@@ -93,7 +122,7 @@
 
             <button type="submit" class="btn btn-success">
                 <i class="bi bi-plus-square mr-1"></i>
-                <span>Create User</span>
+                <span>Create Announcement</span>
             </button>
 
         </div>
@@ -129,4 +158,9 @@
             }
         }
     </script>
+@endsection
+
+@section('script')
+    <script src="{{ asset('/dist/assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
+    <script src=" {{ asset('/dist/assets/js/pages/form-element-select.js') }}"></script>
 @endsection
