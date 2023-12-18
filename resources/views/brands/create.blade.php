@@ -48,7 +48,7 @@
                                             </tr>
                                         @empty
                                         <tr>
-                                            <td class="col-auto text-center">
+                                            <td class="text-center" colspan="3">
                                                 <p class=" mb-0">Tidak ada data
                                                 </p>
                                             </td>

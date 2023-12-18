@@ -43,7 +43,7 @@
                                                         <span class="avatar-content">
                                                             <img class="img-fluid"
                                                                 src="{{ $response['_source']['image'][0]['image_path'] }}"
-                                                                alt="">
+                                                                alt="" onerror="this.src='https://placehold.co/400?text=placeholder';">
                                                         </span>
                                                     </div>
                                                 </div>
@@ -66,7 +66,7 @@
                                                         <span class="avatar-content">
                                                             <img class="img-fluid"
                                                                 src="{{ $response['_source']['image'][0]['image_path'] }}"
-                                                                alt="">
+                                                                alt="" onerror="this.src='https://placehold.co/400?text=placeholder';">
                                                         </span>
                                                     </div>
                                                 </div>
@@ -89,7 +89,7 @@
                                                         <span class="avatar-content">
                                                             <img class="img-fluid"
                                                                 src="{{ $response['_source']['image'][0]['image_path'] }}"
-                                                                alt="">
+                                                                alt="" onerror="this.src='https://placehold.co/400?text=placeholder';">
                                                         </span>
                                                     </div>
                                                 </div>

@@ -12,7 +12,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="container col-lg-8 col-md-8 mb-3">
-                            <img class="w-100 active mb-3 text-center" src="{{ asset('storage/' . $brand->logos) }}">
+                            <img class="w-100 active mb-3 text-center" src="{{ asset('storage/' . $brand->logos) }}"
+                                onerror="this.src='https://placehold.co/400?text=placeholder';">
                             <h3 class="text-center">{{ $brand->name }}</h3>
                             <p class="text-center">{{ $brand->owner }}</p>
                         </div>
@@ -44,6 +45,19 @@
                                                 readonly>
                                         </div>
                                     </div>
+                                    @if ($brand->certificate)
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="mb-1">Surat Keterangan UMK</label><br>
+                                                <a href="{{ asset('/storage/' . $brand->certificate) }}"
+                                                    class="btn btn-primary rounded-pill px-4 py-2" download>
+                                                    <i class="bi bi-download pe-2"></i>
+                                                    <span>Download</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     @if ($brand->decision == 1)
                                         <div class="col-12">
                                             <div class="form-group">

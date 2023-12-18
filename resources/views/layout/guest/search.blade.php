@@ -44,16 +44,23 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a class="btn btn-success bg-gradient" href="/login">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i>
-                                    <span>Login</span>
-                                </a>
+                                @if (auth()->user())
+                                    <a class="btn btn-success bg-gradient" href="/login">
+                                        <i class="bi bi-box-arrow-in-right me-1"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                @else
+                                    <a class="btn btn-success bg-gradient" href="/login">
+                                        <i class="bi bi-box-arrow-in-right me-1"></i>
+                                        <span>Login</span>
+                                    </a>
+                                @endif
                             </li>
                         </ul>
                     </div>
                 </nav>
                 <!-- Burger button responsive -->
-                <div class="container"> 
+                <div class="container">
                     <div class="float-end">
                         <a href="#" class="burger-btn d-block d-xl-none">
                             <i class="bi bi-justify fs-3"></i>

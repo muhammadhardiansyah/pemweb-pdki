@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <div class="container col-lg-8 col-md-8 mb-3">
                                 <img class="w-100 active mb-3 text-center"
-                                    src="{{ $response['image'][0]['image_path'] }}">
+                                    src="{{ $response['image'][0]['image_path'] }}" onerror="this.src='https://placehold.co/400?text=placeholder';">
                                 <h3 class="text-center">{{ $response['nama_merek'] }}</h3>
                                 <p class="text-center">{{ $response['owner'][0]['tm_owner_name'] }}</p>
                             </div>

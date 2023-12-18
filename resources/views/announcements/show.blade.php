@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <div class="container col-lg-8 col-md-8 mb-3">
                                 <img class="w-100 active mb-3 text-center"
-                                    src="{{ asset('storage/' . $announcement->data['logos']) }}">
+                                    src="{{ asset('storage/' . $announcement->data['logos']) }}" onerror="this.src='https://placehold.co/400?text=placeholder';">
                                 <h3 class="text-center">{{ $announcement->data['name'] }}</h3>
                                 <p class="text-center">{{ $announcement->data['owner'] }}</p>
                             </div>

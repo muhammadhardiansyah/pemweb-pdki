@@ -24,7 +24,7 @@ var optionsProfileVisit = {
 	},
 }
 let optionsVisitorsProfile  = {
-	series: [70, 30],
+	series: [123, 310],
 	labels: ['Male1', 'Female'],
 	colors: ['#435ebe','#55c6e8'],
 	chart: {

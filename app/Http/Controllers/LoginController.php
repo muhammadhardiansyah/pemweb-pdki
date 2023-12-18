@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DailyLogin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        if (Auth::viaRemember()){
+        if (Auth::viaRemember()) {
             return redirect('/admin');
-        }
-        else {
+        } else {
             return view('auth.login');
         }
     }
@@ -26,15 +27,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
+            $dailyLogin = DailyLogin::firstOrCreate(['login_date' => Carbon::today()->toDateString()]);
+            $dailyLogin->increment('login_count');  
             return redirect()->intended('/admin');
         }
-
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        // ])->onlyInput('email');
         return back()->with('loginError', 'The email address or password did not match our records')->onlyInput('email');
-
-        // return ($request->all());
     }
 
     public function logout(Request $request)
