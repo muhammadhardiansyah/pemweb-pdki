@@ -70,6 +70,7 @@ Route::post('/admin/brands/reject', [DashboardBrandController::class, 'reject'])
 Route::post('/admin/brands/revise', [DashboardBrandController::class, 'revise'])->middleware(['auth','verified', 'role:admin']);
 Route::get('/admin/brands/create/check', [DashboardBrandController::class, 'checkCreate'])->middleware(['auth','verified', 'role:admin|user']);
 Route::get('/admin/brands/{id}/edit/check', [DashboardBrandController::class, 'checkEdit'])->middleware(['auth','verified', 'role:admin|user']);
+Route::get('/admin/desc', [DashboardBrandController::class, 'checkSlug'])->middleware(['auth','verified', 'role:admin|user']);
 
 // Auth::routes();
 

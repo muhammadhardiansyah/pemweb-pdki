@@ -38,6 +38,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Merek</th>
+                                            <th>Class</th>
                                             <th>Similiarity</th>
                                         </tr>
                                     </thead>
@@ -46,11 +47,12 @@
                                             <tr>
                                                 <td>{{ $item['id'] }}</td>
                                                 <td class="text-bold-500">{{ $item['name'] }}</td>
+                                                <td class="text-bold-500">{{ $item['class'] }}</td>
                                                 <td class="text-bold-500">{{ $item['similiarity'] }}%</td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td class="col-auto text-center">
+                                                <td class="text-center" colspan="4">
                                                     <p class=" mb-0">Tidak ada data
                                                     </p>
                                                 </td>
@@ -74,6 +76,25 @@
                     <button class="btn btn-primary" type="button" id="button-search">Search</button>
                 </div>
             @endif
+            
+            <div class="form-group">
+                <select class="choices form-select @error('brandClass_id') is-invalid @enderror" name="brandClass_id" id="title" required>
+                    @foreach ($classes as $item)
+                        <option {{ old('brandClass_id', $brand->brandClass_id) == "$item->id" ? 'selected' : '' }} value="{{ $item->id }}"> 
+                            Kelas {{ $item->no_class }}</option>
+                    @endforeach
+                    <label for="floatingInput" class="mb-2">Kelas</label>
+                </select>
+                @error('brandClass_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
+                <textarea class="form-control" id="slug" name="desc" rows="4" readonly>{{ old('desc', $brand->brandClass->desc) }}</textarea>
+            </div>
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
@@ -158,6 +179,16 @@
 
     </form>
 
+    <script>
+        const title = document.querySelector('#title');
+        const slug = document.querySelector('#slug');
+
+        title.addEventListener('change', function() {
+            fetch('/admin/desc?title=' + title.value)
+                .then(response => response.json())
+                .then(data => slug.value = data.slug)
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

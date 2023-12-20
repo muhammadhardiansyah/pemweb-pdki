@@ -10,11 +10,12 @@ class Brand extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $with = ['applicant'];
+    protected $with = ['applicant', 'brandClass'];
 
     protected $fillable = [
         'name',
         'user_id',
+        'brandClass_id',
         'address',
         'owner',
         'logos',
@@ -54,6 +55,10 @@ class Brand extends Model
     public function applicant()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function brandClass()
+    {
+        return $this->belongsTo(BrandClass::class, 'brandClass_id');
     }
 
 }

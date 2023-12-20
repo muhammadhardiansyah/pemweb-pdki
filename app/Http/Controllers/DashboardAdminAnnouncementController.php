@@ -14,7 +14,7 @@ class DashboardAdminAnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = DB::table('notifications')->where('type','App\Notifications\InformationNotification')->get();
+        $announcements = DB::table('notifications')->where('type','App\Notifications\InformationNotification')->latest()->get();
         return view('admin_announcements.index', [
             'active'=> 'dash_adm_announce',
             'announcements' => $announcements,

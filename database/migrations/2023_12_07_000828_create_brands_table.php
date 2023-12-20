@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('brandClass_id')->constrained('brand_classes')->onDelete('cascade');
             $table->string('name');
             $table->string('address');
             $table->string('owner');

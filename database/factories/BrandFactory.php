@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use App\Models\BrandClass;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Brand>
@@ -19,9 +20,11 @@ class BrandFactory extends Factory
     {
 
         $userId = User::inRandomOrder()->first()->id;
+        $classId = BrandClass::inRandomOrder()->first()->id;
 
         return [
             'user_id' => $userId,
+            'brandClass_id' => $classId,
             'name' => fake()->company(),
             'address' => fake()->address(),
             'owner' => fake()->name(),

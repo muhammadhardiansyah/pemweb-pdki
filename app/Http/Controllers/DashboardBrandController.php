@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use App\Models\Brand;
 use App\Models\User;
+use App\Models\BrandClass;
 use App\Notifications\ReviseBrandNotification;
 use App\Notifications\ApproveBrandNotification;
 use App\Notifications\RejectBrandNotification;
@@ -63,7 +64,7 @@ class DashboardBrandController extends Controller
                     'id' => $item['_id'],
                     'name' => $item['_source']['nama_merek'],
                     'similiarity' => $this->similiarity($item['_source']['nama_merek'], session('brand_name')),
-                    'image' => $item['_source']['image'][0]['image_path']
+                    'class' => $item['_source']['t_class'][0]['class_no']
                 ];
             } else {
                 break;
@@ -82,11 +83,13 @@ class DashboardBrandController extends Controller
             session(['name' => session('brand_name')]);
             return view('brands.create', [
                 'active' => 'dash_brands',
+                'classes'  => BrandClass::orderBy('no_class')->get(),
                 'responses' => $this->get_PDKI_table($pdki,session('name'))
             ]);
         } else {
             return view('brands.create', [
-                'active' => 'dash_brands'
+                'active' => 'dash_brands',
+                'classes'  => BrandClass::orderBy('no_class')->get(),
             ]);
         }
     }
@@ -100,6 +103,7 @@ class DashboardBrandController extends Controller
         $validatedData = $request->validate([
             'name'          => 'required|min:3|max:255',
             'user_id'     => 'required',
+            'brandClass_id' => 'required',
             'address'       => 'required|min:3|max:255',
             'owner'         => 'required|min:3|max:255',
             'logos'         => 'required|image|file|max:2048',
@@ -145,12 +149,14 @@ class DashboardBrandController extends Controller
             session(['name' => session('brand_name')]);
             return view('brands.edit', [
                 'active' => 'dash_brands',
+                'classes'  => BrandClass::orderBy('no_class')->get(),
                 'responses' => $this->get_PDKI_table($pdki,session('name')),
                 'brand' => $brand
             ]);
         } else {
             return view('brands.edit', [
                 'active' => 'dash_brands',
+                'classes'  => BrandClass::orderBy('no_class')->get(),
                 'brand' => $brand
             ]);
         }
@@ -163,6 +169,7 @@ class DashboardBrandController extends Controller
     {
         $rules = [
             'name'          => 'required|min:3|max:255',
+            'brandClass_id' => 'required',
             'address'       => 'required|min:3|max:255',
             'owner'         => 'required|min:3|max:255',
             'logos'         => 'image|file|max:2048',
@@ -255,5 +262,12 @@ class DashboardBrandController extends Controller
     {
         $brand = Brand::find($id);
         return redirect('/admin/brands/'.$brand->id.'/edit')->with('brand_name', $request->name);
+    }
+    public function checkSlug(Request $request)
+    {
+        // dd($request->title);
+        $brand = BrandClass::find($request);
+        $slug = $brand[0]->desc;
+        return response()->json(['slug' => $slug]);
     }
 }

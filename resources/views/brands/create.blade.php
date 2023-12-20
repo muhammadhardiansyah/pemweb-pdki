@@ -1,4 +1,7 @@
 @extends('layout.dashboard.main')
+@section('style')
+    <link rel="stylesheet" href="{{ asset('/dist/assets/extensions/choices.js/public/assets/styles/choices.css') }}">
+@endsection
 @section('container')
     <header class="mb-3">
         <a href="#" class="burger-btn d-block d-xl-none">
@@ -36,6 +39,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Merek</th>
+                                            <th>Class</th>
                                             <th>Similiarity</th>
                                         </tr>
                                     </thead>
@@ -44,11 +48,12 @@
                                             <tr>
                                                 <td>{{ $item['id'] }}</td>
                                                 <td class="text-bold-500">{{ $item['name'] }}</td>
+                                                <td class="text-bold-500">{{ $item['class'] }}</td>
                                                 <td class="text-bold-500">{{ $item['similiarity'] }}%</td>
                                             </tr>
                                         @empty
                                         <tr>
-                                            <td class="text-center" colspan="3">
+                                            <td class="text-center" colspan="4">
                                                 <p class=" mb-0">Tidak ada data
                                                 </p>
                                             </td>
@@ -71,6 +76,26 @@
                     <button class="btn btn-primary" type="button" id="button-search">Search</button>
                 </div>
             @endif
+
+            <div class="form-group">
+                <select class="choices form-select @error('brandClass_id') is-invalid @enderror" name="brandClass_id" id="title" required>
+                    @foreach ($classes as $item)
+                        <option {{ old('brandClass_id') == "$item->id" ? 'selected' : '' }} value="{{ $item->id }}"> 
+                            Kelas {{ $item->no_class }}</option>
+                    @endforeach
+                    <label for="floatingInput" class="mb-2">Kelas</label>
+                </select>
+                @error('brandClass_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
+                <textarea class="form-control" id="slug" name="desc" rows="4" readonly>{{ old('desc', $classes[0]->desc) }}</textarea>
+            </div>
+
             <div class="form-floating mb-3">
                 <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                     name='address' placeholder="Masukkan alamat" value="{{ old('address') }}" required>
@@ -92,42 +117,6 @@
                     </div>
                 @enderror
             </div>
-
-            {{-- <div class="form-floating mb-3">
-                <select class="form-select @error('user_id') is-invalid @enderror" name="user_id"
-                    aria-label="Floating label select example" required>
-                    <option {{ old('user_id') == '' ? 'selected' : '' }} value="">Select Author</option>
-                    @foreach ($authors as $author)
-                        <option {{ old('user_id') == $author->id ? 'selected' : '' }} value="{{ $author->id }}">
-                            {{ $author->name }}</option>
-                    @endforeach
-                </select>
-                <label for="floatingSelect">Author</label>
-
-                @error('user_id')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div> --}}
-
-            {{-- <div class="form-floating mb-3">
-                <select class="form-select @error('category_id') is-invalid @enderror" name="category_id"
-                    aria-label="Floating label select example" required>
-                    <option {{ old('category_id') == '' ? 'selected' : '' }} value="">Select Category</option>
-                    @foreach ($categories as $category)
-                        <option {{ old('category_id') == $category->id ? 'selected' : '' }} value="{{ $category->id }}">
-                            {{ $category->name }}</option>
-                    @endforeach
-                </select>
-                <label for="floatingSelect">Category</label>
-
-                @error('category_id')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div> --}}
 
             <div class="mb-3">
                 <label for="logos" class="form-label">Masukkan Logo Usaha</label>
@@ -183,16 +172,16 @@
 
 
 
-    {{-- <script>
+    <script>
         const title = document.querySelector('#title');
         const slug = document.querySelector('#slug');
 
         title.addEventListener('change', function() {
-            fetch('/dashboard/posts/checkSlug?title=' + title.value)
+            fetch('/admin/desc?title=' + title.value)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug)
         });
-    </script> --}}
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -254,4 +243,10 @@
             });
         });
     </script>
+@endsection
+
+
+@section('script')
+    <script src="{{ asset('/dist/assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
+    <script src=" {{ asset('/dist/assets/js/pages/form-element-select.js') }}"></script>
 @endsection
