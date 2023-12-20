@@ -87,4 +87,5 @@ Route::resource('/admin/roles', DashboardRoleController::class)->middleware(['au
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/home/search', [HomeController::class, 'search'])->name('search');
 Route::get('/home/search/{id}', [HomeController::class, 'show'])->name('show');
-
+Route::get('/home/brands', [HomeController::class, 'brands'])->name('brands');
+Route::get('/home/brands/{id}', [HomeController::class, 'showBrands'])->name('showBrands');

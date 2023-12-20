@@ -38,11 +38,22 @@
                 <nav class="main-navbar">
                     <div class="container">
                         <ul class="d-flex justify-content-end">
-                            <li class="menu-item me-auto">
-                                <a href="/">
-                                    <span class="menu-link">Pemweb - PDKI</span>
-                                </a>
+                            <li class="me-auto">
+                                <ul>
+                                    <li class="menu-item">
+                                        <a href="/">
+                                            <span class="menu-link">Pemweb - PDKI</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/home/brands">
+                                            <span class="menu-link">Brands</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                
                             </li>
+                            
                             <li class="menu-item">
                                 @if (auth()->user())
                                     <a class="btn btn-success bg-gradient" href="/login">
