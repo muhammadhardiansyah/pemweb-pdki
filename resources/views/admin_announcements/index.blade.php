@@ -10,18 +10,21 @@
 
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show col-12 mx-auto" role="alert">
+            <i class="bi bi-check-circle pe-2"></i>
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('danger'))
         <div class="alert alert-danger alert-dismissible fade show col-12 mx-auto" role="alert">
+            <i class="bi bi-exclamation-triangle pe-2"></i>
             {{ session('danger') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('warning'))
         <div class="alert alert-warning alert-dismissible fade show col-12 mx-auto" role="alert">
+            <i class="bi bi-check-circle pe-2"></i>
             {{ session('warning') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

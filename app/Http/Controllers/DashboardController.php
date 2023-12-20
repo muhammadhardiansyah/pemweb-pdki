@@ -19,6 +19,8 @@ class DashboardController extends Controller
             return view('dashboard.index', [
                 'active'    => 'dash',
                 'brands'    => Brand::latest(),
+                'approvedBrands'=> Brand::latest()->where('decision', 1)->take(3)->get(),
+                'recentBrands' => Brand::latest()->take(4)->get(),
                 'daily'     => DailyLogin::latest()->get(),
                 'users'     => User::all(),
                 'countUser' => User::role('user')->count(),

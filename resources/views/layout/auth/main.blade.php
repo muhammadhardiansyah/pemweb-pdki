@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
     <link href="/css/templatemo-pod-talk.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="{{ asset('/logo/uns.png') }}" type="image/png">
     <!--
 
 TemplateMo 584 Pod Talk

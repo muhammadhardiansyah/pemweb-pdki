@@ -108,8 +108,8 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="row">
-                    <div class="col-12 col-xl-4">
+                <div class="row">
+                    {{-- <div class="col-12 col-xl-4">
                         <div class="card">
                             <div class="card-header">
                                 <h4>Profile Visit</h4>
@@ -168,11 +168,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-xl-8">
+                    </div> --}}
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Latest Comments</h4>
+                                <h4>Recently Approved Brands</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -180,44 +180,37 @@
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Comment</th>
+                                                <th>Owner</th>
+                                                <th>Address</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/5.jpg">
+                                            @forelse ($approvedBrands as $approvedBrand)
+                                                <tr>
+                                                    <td class="col-3">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar avatar-md">
+                                                                <img src="{{ asset('/storage/' . $approvedBrand->logos) }}" onerror="this.src='https://placehold.co/400?text=placeholder';">
+                                                            </div>
+                                                            <p class="font-bold ms-3 mb-0">{{ $approvedBrand->name }}</p>
                                                         </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Congratulations on your graduation!</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/2.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another tutorial for
-                                                        this design?</p>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">{{ $approvedBrand->owner }}</p>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">{{ $approvedBrand->address }}</p>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
             <div class="col-12 col-lg-3">
                 {{-- <div class="card">
@@ -246,15 +239,15 @@
                         <h4>Recent Brands</h4>
                     </div>
                     <div class="card-content pb-4">
-                        @forelse ($brands->take(3)->get() as $brand)
+                        @forelse ($recentBrands as $recentBrand)
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="avatar avatar-lg">
-                                    <img src="{{ asset('/storage/' . $brand->logos) }}"
+                                    <img src="{{ asset('/storage/' . $recentBrand->logos) }}"
                                         onerror="this.src='https://placehold.co/400?text=placeholder';">
                                 </div>
                                 <div class="name ms-4">
-                                    <h5 class="mb-1">{{ $brand->name }}</h5>
-                                    <h6 class="text-muted mb-0">{{ $brand->owner }}</h6>
+                                    <h5 class="mb-1">{{ $recentBrand->name }}</h5>
+                                    <h6 class="text-muted mb-0">{{ $recentBrand->owner }}</h6>
                                 </div>
                             </div>
                         @empty
@@ -266,9 +259,17 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </section>
+        <footer>
+            <div class="footer float-end clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2023 &copy; PDKI - Pemweb</p>
+                </div>
+                
+            </div>
+        </footer>
     </div>
 
     <input type="hidden" id="b_today" value="{{ $brandsToday }}">
@@ -299,7 +300,7 @@
             },
             chart: {
                 type: 'bar',
-                height: 300
+                // height: 400 
             },
             fill: {
                 opacity: 1
@@ -332,7 +333,7 @@
             },
             chart: {
                 type: 'bar',
-                height: 300
+                // height: 300
             },
             fill: {
                 opacity: 1
