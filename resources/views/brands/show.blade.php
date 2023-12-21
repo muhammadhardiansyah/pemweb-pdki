@@ -80,12 +80,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        {{-- <div class="col-12">
                                             <div class="form-group">
                                                 <label class="form-label">Catatan</label>
-                                                <textarea class="form-control" rows="3" readonly>{{ $brand->notes }}</textarea>
+                                                <textarea class="form-control" rows="3" readonly>{{ $brand-> }}</textarea>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     @elseif($brand->decision == 2)
                                         <div class="col-12">
                                             <div class="form-group">
@@ -108,12 +108,12 @@
                                                         class="bi bi-exclamation-triangle pe-1"></i>Revisi</div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        {{-- <div class="col-12">
                                             <div class="form-group">
                                                 <label class="form-label">Catatan</label>
                                                 <textarea class="form-control" rows="3" readonly>{{ $brand->notes }}</textarea>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-12 d-flex justify-content-end">
                                             <a href="/admin/brands/{{ $brand->id }}/edit"
                                                 class="btn btn-warning me-1 mb-1 text-black"><i

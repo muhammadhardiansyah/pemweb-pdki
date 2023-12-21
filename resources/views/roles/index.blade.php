@@ -30,7 +30,7 @@
     @endif
 
     <div class="page-heading">
-        <h3>Merek</h3>
+        <h3>Authorization Administrator</h3>
     </div>
 
     <section class="section">
@@ -46,6 +46,7 @@
                         <tr>
                             <th class="col-1 text-center">#</th>
                             <th class="col-2 text-center">Nama</th>
+                            <th class="col-2 text-center">Email</th>
                             <th class="col-2 text-center">Perizinan</th>
                             <th class="col-3 text-center">Action</th>
                         </tr>
@@ -55,6 +56,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $users->find($item->model_id)->name }}</td>
+                                <td>{{ $users->find($item->model_id)->email }}</td>
                                 <td>
                                     <div
                                         class="text-center">

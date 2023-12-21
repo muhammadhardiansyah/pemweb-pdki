@@ -126,7 +126,8 @@
                                                                 @if ($brand->certificate)
                                                                     <br>
                                                                     <a href="{{ asset('/storage/' . $brand->certificate) }}"
-                                                                        class="form-control btn btn-primary rounded-pill px-4 py-2 mt-2" download>
+                                                                        class="form-control btn btn-primary rounded-pill px-4 py-2 mt-2"
+                                                                        download>
                                                                         <i class="bi bi-download pe-2"></i>
                                                                         <span>Download</span>
                                                                     </a>
@@ -268,7 +269,8 @@
                                             </div>
                                         @else
                                             <div class="text-center">
-                                                <a href="#" class="btn icon icon-left btn-warning bg-gradient text-black"><i
+                                                <a href="#"
+                                                    class="btn icon icon-left btn-warning bg-gradient text-black"><i
                                                         data-feather="alert-triangle"></i> Perbaikan</a>
                                             </div>
                                         @endif
@@ -304,11 +306,22 @@
                                         <i class="bi bi-eye-fill"></i>
                                         <span>Show</span>
                                     </a>
-                                    <a class="btn btn-outline-warning m-1 col-12"
-                                        href="/admin/brands/{{ $brand->id }}/edit">
-                                        <i class="bi bi-pencil-square"></i>
-                                        <span>Edit</span>
-                                    </a>
+                                    @if (auth()->user()->hasRole('user'))
+                                        @if ($brand->decision == 2 || $brand->decision == 3)
+                                            <a class="btn btn-outline-warning m-1 col-12"
+                                                href="/admin/brands/{{ $brand->id }}/edit">
+                                                <i class="bi bi-pencil-square"></i>
+                                                <span>Edit</span>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <a class="btn btn-outline-warning m-1 col-12"
+                                            href="/admin/brands/{{ $brand->id }}/edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                            <span>Edit</span>
+                                        </a>
+                                    @endif
+
                                     <form action="/admin/brands/{{ $brand->id }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf

@@ -22,7 +22,7 @@
                 <select class="choices form-select @error('for') is-invalid @enderror" name="for" required>
                     <option {{ old('for') == 'all' ? 'selected' : '' }} value="all">Semua</option>
                     @foreach ($users as $item)
-                        <option {{ old('for') == "$item->id" ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                        <option {{ old('for') == "$item->id" ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name .' | '. $item->email }}</option>
                     @endforeach
                 </select>
                 @error('for')
