@@ -46,7 +46,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Kelas {{ $brand->brandClass->no_class }}</label>
-                                                <textarea class="form-control" rows="4">{{ $brand->brandClass->desc }}</textarea>
+                                                <textarea class="form-control" rows="4" readonly>{{ $brand->brandClass->desc }}</textarea>
                                             </div>
                                         </div>
                                         @if ($brand->decision == 1)
