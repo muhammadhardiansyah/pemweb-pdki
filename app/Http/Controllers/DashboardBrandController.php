@@ -64,7 +64,8 @@ class DashboardBrandController extends Controller
                     'id' => $item['_id'],
                     'name' => $item['_source']['nama_merek'],
                     'similiarity' => $this->similiarity($item['_source']['nama_merek'], session('brand_name')),
-                    'class' => $item['_source']['t_class'][0]['class_no']
+                    'class' => $item['_source']['t_class'][0]['class_no'],
+                    'status' => $item['_source']['status_permohonan']
                 ];
             } else {
                 break;

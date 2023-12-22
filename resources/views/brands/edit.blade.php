@@ -39,6 +39,7 @@
                                             <th>ID</th>
                                             <th>Merek</th>
                                             <th>Class</th>
+                                            <th>Status</th>
                                             <th>Similiarity</th>
                                         </tr>
                                     </thead>
@@ -48,6 +49,7 @@
                                                 <td>{{ $item['id'] }}</td>
                                                 <td class="text-bold-500">{{ $item['name'] }}</td>
                                                 <td class="text-bold-500">{{ $item['class'] }}</td>
+                                                <td class="text-bold-500">{{ $item['status'] }}</td>
                                                 <td class="text-bold-500">{{ $item['similiarity'] }}%</td>
                                             </tr>
                                         @empty
