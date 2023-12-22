@@ -28,11 +28,19 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'username' => 'admin',
-            'email' => 'ardana.629@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
             'address' => 'Blitar',
             'email_verified_at' => now()
         ])->assignRole('admin');
+        User::create([
+            'name' => 'User',
+            'username' => 'user',
+            'email' => 'user@gmail.com',
+            'password' => bcrypt('password'),
+            'address' => 'Blitar',
+            'email_verified_at' => now()
+        ])->assignRole('user');
         
 
         BrandClass::create([
